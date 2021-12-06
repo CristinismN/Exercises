@@ -12,28 +12,28 @@ const answer = (array,inputNumber) => {
 		var currentIndex=index1;
 		array.forEach((number2,index2) => {
 			if (currentNum+array[index2]===inputNumber && index2!=currentIndex) {
-				if (outputArray.length===0) {
-					if (currentNum < array[index2]) 
-					{
-						outputArray.push([currentNum, array[index2]]);
-					}
-					else {
-						outputArray.push([array[index2]], currentNum);
-					}
-					
+				// created sorted array with sum pair
+				let tempArray = [];
+				if (currentNum < array[index2]) 
+				{
+					tempArray = [currentNum, array[index2]];
 				}
 				else {
-					for (item of outputArray) {
-						if (item[0]===currentNum || item[0]===array[index2]) {
-							counter++;
-							break;		
-						}			
-					}
-					if (counter===0){
-						outputArray.push([currentNum, array[index2]]);
-					}
-					counter=0;
+					tempArray = [array[index2], currentNum];
+				}				
+				// add sum pair to output if not already found
+				for (item of outputArray) {
+					// only check first number of the pair
+					if (item[0]===tempArray[0]) {
+						counter++;
+						break;		
+					}			
 				}
+				if (counter===0) {
+					outputArray.push(tempArray);
+				}
+				counter=0;
+				
 			}
 		});
 	});	
